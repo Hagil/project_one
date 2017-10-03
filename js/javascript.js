@@ -6,11 +6,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
 
 var score = 0;
 var scoreText;
+var bgm;
 
 function preload() {
   game.load.image('sky', 'images/sky.png');
+  game.load.audio('bgm', ['audio/toad.mp3', 'audio/toad.ogg']);
   game.load.image('ground', 'images/platform.png');
-  game.load.image('star', 'images/star.png');
+  game.load.image('cupcake', 'images/cupcake.png');
   game.load.spritesheet('dude', 'images/dude.png', 32, 48);
 }
 
@@ -21,6 +23,11 @@ function create() {
   //  A simple background for our game
   game.add.sprite(0, 0, 'sky');
 
+  bgm = game.add.audio('bgm');
+
+  bgm.play();
+
+  game.input.onDown.add(changeVolume, this);
   //  The platforms group contains the ground and the 2 ledges we can jump on
   platforms = game.add.group();
 
@@ -60,25 +67,35 @@ function create() {
 
   cursors = game.input.keyboard.createCursorKeys();
 
-  stars = game.add.group();
+  cupcakes = game.add.group();
 
-  stars.enableBody = true;
+  cupcakes.enableBody = true;
 
   //  Here we'll create 12 of them evenly spaced apart
   for (var i = 0; i < 12; i++) {
     //  Create a star inside of the 'stars' group
-    var star = stars.create(i * 70, 0, 'star');
+    var cupcake = cupcakes.create(i * 70, 0, 'cupcake');
 
     //  Let gravity do its thing
-    star.body.gravity.y = 6;
+    cupcake.body.gravity.y = 6;
 
     //  This just gives each star a slightly random bounce value
-    star.body.bounce.y = 0.7 + Math.random() * 0.2;
+    cupcake.body.bounce.y = 0.7 + Math.random() * 0.2;
   }
   scoreText = game.add.text(16, 16, 'score: 0', {
     fontSize: '32px',
     fill: '#000'
   });
+}
+
+function changeVolume(pointer) {
+
+  if (pointer.y < 300) {
+    bgm.pause();
+  } else {
+    bgm.resume();
+  }
+
 }
 
 
@@ -107,15 +124,15 @@ function update() {
   if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
     player.body.velocity.y = -350;
   }
-  game.physics.arcade.collide(stars, platforms);
-  game.physics.arcade.overlap(player, stars, collectStar, null, this);
+  game.physics.arcade.collide(cupcakes, platforms);
+  game.physics.arcade.overlap(player, cupcakes, collectCupcake, null, this);
 
 }
 
-function collectStar(player, star) {
+function collectCupcake(player, cupcake) {
 
   // Removes the star from the screen
-  star.kill();
+  cupcake.kill();
   score += 10;
   scoreText.text = 'Score: ' + score;
 
