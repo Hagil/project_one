@@ -1,5 +1,22 @@
 h1 {
-  font-size: 16px; }
+  font-size: 25px;
+  font-family: 'Berkshire Swash', cursive;
+  text-align: justify;
+  color: #ff99ff; }
+
+p {
+  font-size: 25px;
+  font-family: 'Berkshire Swash', cursive;
+  color: #000;
+  float: right;
+  padding-right: 50px;
+  margin-right: 50px; }
+
+h2 {
+  font-size: 25px;
+  font-family: 'Berkshire Swash', cursive;
+  text-align: justify;
+  color: #99ccff; }
 
 canvas {
   box-shadow: 1em 1em 0.5em gray; }

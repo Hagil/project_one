@@ -14,7 +14,7 @@ function preload() {
   game.load.image('ground', 'images/platform.png');
   game.load.image('cupcake', 'images/cupcake.png');
   game.load.spritesheet('dude', 'images/dude.png', 32, 48);
-  
+
 }
 
 function create() {
@@ -85,7 +85,8 @@ function create() {
   }
   scoreText = game.add.text(16, 16, 'score: 0', {
     fontSize: '32px',
-    fill: '#000'
+    fill: '#b3ffb3'
+
   });
 }
 
