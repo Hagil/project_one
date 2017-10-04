@@ -1,4 +1,7 @@
 h1 {
   font-size: 16px; }
 
+canvas {
+  box-shadow: 1em 1em 0.5em gray; }
+
 /*# sourceMappingURL=style.css.map */

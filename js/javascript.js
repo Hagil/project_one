@@ -14,6 +14,7 @@ function preload() {
   game.load.image('ground', 'images/platform.png');
   game.load.image('cupcake', 'images/cupcake.png');
   game.load.spritesheet('dude', 'images/dude.png', 32, 48);
+  
 }
 
 function create() {
