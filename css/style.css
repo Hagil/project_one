@@ -2,7 +2,8 @@ h1 {
   font-size: 25px;
   font-family: 'Berkshire Swash', cursive;
   text-align: justify;
-  color: #ff99ff; }
+  color: #ff99ff;
+  text-shadow: 2px 2px #000; }
 
 p {
   font-size: 25px;
@@ -16,7 +17,8 @@ h2 {
   font-size: 25px;
   font-family: 'Berkshire Swash', cursive;
   text-align: justify;
-  color: #99ccff; }
+  color: #99ccff;
+  text-shadow: 2px 2px #000; }
 
 h3 {
   font-size: 25px;
