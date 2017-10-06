@@ -1,142 +1,56 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
   preload: preload,
   create: create,
-  update: update
+  update: update,
+  render: render
 });
 
 var score = 0;
 var scoreText;
 var bgm;
+var timer;
+var total = 0;
 
-function preload() {
-  game.load.image('sky', 'images/sky.png');
-  game.load.audio('bgm', ['audio/toad.mp3', 'audio/toad.ogg']);
-  game.load.image('ground', 'images/platform.png');
-  game.load.image('cupcake', 'images/cupcake.png');
-  game.load.spritesheet('dude', 'images/dude.png', 32, 48);
+WebFontConfig =
+  //  'active' means all requested fonts have finished loading
+  //  We set a 1 second delay before calling 'createText'.
+  //  For some reason if we don't the browser cannot render the text the first time it's created.
+  {
+    active: function() {
+      game.time.events.add(Phaser.Timer.SECOND, createText, this);
+    },
+    //  The Google Fonts we want to load (specify as many as you like in the array)
+    google: {
+      families: ['Berkshire Swash']
+    }
+  }
 
+function render() {
+  game.debug.text('Time until event: ' + timer.duration.toFixed(0), 550, 40);
+  game.debug.text('Loop Count: ' + total, 550, 60);
 }
 
-function create() {
-  //  We're going to be using physics, so enable the Arcade Physics system
-  game.physics.startSystem(Phaser.Physics.ARCADE);
+function updateCounter() {
+  total++;
+  console.log('Change Player');
+  changePlayer()
+}
 
-  //  A simple background for our game
-  game.add.sprite(0, 0, 'sky');
+function changePlayer() {
 
-  bgm = game.add.audio('bgm');
-
-  bgm.play();
-
-  game.input.onDown.add(changeVolume, this);
-  //  The platforms group contains the ground and the 2 ledges we can jump on
-  platforms = game.add.group();
-
-  //  We will enable physics for any object that is created in this group
-  platforms.enableBody = true;
-
-  // Here we create the ground.
-  var ground = platforms.create(0, game.world.height - 64, 'ground');
-
-  //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-  ground.scale.setTo(2, 2);
-
-  //  This stops it from falling away when you jump on it
-  ground.body.immovable = true;
-
-  //  Now let's create two ledges
-  var ledge = platforms.create(400, 400, 'ground');
-
-  ledge.body.immovable = true;
-
-  ledge = platforms.create(-150, 250, 'ground');
-
-  ledge.body.immovable = true;
-  player = game.add.sprite(32, game.world.height - 150, 'dude');
-
-  //  We need to enable physics on the player
-  game.physics.arcade.enable(player);
-
-  //  Player physics properties. Give the little guy a slight bounce.
-  player.body.bounce.y = 0.2;
-  player.body.gravity.y = 300;
-  player.body.collideWorldBounds = true;
-
-  //  Our two animations, walking left and right.
-  player.animations.add('left', [0, 1, 2, 3], 10, true);
-  player.animations.add('right', [5, 6, 7, 8], 10, true);
-
-  cursors = game.input.keyboard.createCursorKeys();
-
-  cupcakes = game.add.group();
-
-  cupcakes.enableBody = true;
-
-  //  Here we'll create 12 of them evenly spaced apart
-  for (var i = 0; i < 12; i++) {
-    //  Create a star inside of the 'stars' group
-    var cupcake = cupcakes.create(i * 70, 0, 'cupcake');
-
-    //  Let gravity do its thing
-    cupcake.body.gravity.y = 6;
-
-    //  This just gives each star a slightly random bounce value
-    cupcake.body.bounce.y = 0.7 + Math.random() * 0.2;
-  }
-  scoreText = game.add.text(16, 16, 'score: 0', {
-    fontSize: '32px',
-    fill: '#b3ffb3'
-
-  });
 }
 
 function changeVolume(pointer) {
-
   if (pointer.y < 300) {
     bgm.pause();
   } else {
     bgm.resume();
   }
-
-}
-
-
-function update() {
-  var hitPlatform = game.physics.arcade.collide(player, platforms);
-  player.body.velocity.x = 0;
-
-  if (cursors.left.isDown) {
-    //  Move to the left
-    player.body.velocity.x = -150;
-
-    player.animations.play('left');
-  } else if (cursors.right.isDown) {
-    //  Move to the right
-    player.body.velocity.x = 150;
-
-    player.animations.play('right');
-  } else {
-    //  Stand still
-    player.animations.stop();
-
-    player.frame = 4;
-  }
-
-  //  Allow the player to jump if they are touching the ground.
-  if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
-    player.body.velocity.y = -350;
-  }
-  game.physics.arcade.collide(cupcakes, platforms);
-  game.physics.arcade.overlap(player, cupcakes, collectCupcake, null, this);
-
 }
 
 function collectCupcake(player, cupcake) {
-
-  // Removes the star from the screen
+  // Removes the cupcakes from the screen
   cupcake.kill();
   score += 10;
   scoreText.text = 'Score: ' + score;
-
-
 }
