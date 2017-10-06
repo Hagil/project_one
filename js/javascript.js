@@ -5,7 +5,6 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'location', {
   render: render
 });
 
-
 var score = 0;
 var scoreText;
 var bgm;
@@ -16,7 +15,7 @@ var playerOne = 'Player 1',
 var currentPlayer = playerOne;
 var playerOneScore, playerTwoScore;
 
-console.log(playerOne + 'turn');
+console.log(playerOne + ' turn');
 
 WebFontConfig = {
   //  The Google Fonts we want to load (specify as many as you like in the array)
@@ -40,12 +39,14 @@ function updateCounter() {
 function changePlayer() {
   if (currentPlayer == playerOne) {
     console.log(currentPlayer);
+    //record score of player 1
     playerOneScore = score;
     score = 0;
     currentPlayer = playerTwo;
     var temp = document.getElementById("location");
     temp.innerHTML = "";
     game.world.removeAll();
+    //reset cupcakes, score counter
     game = new Phaser.Game(800, 600, Phaser.CANVAS, 'location', {
       preload: preload,
       create: create,
@@ -53,24 +54,20 @@ function changePlayer() {
       render: render
     });
   }
+  //switch to player 2
   else if (currentPlayer == playerTwo) {
     console.log(currentPlayer);
     playerTwoScore = score;
     currentPlayer = 'finished';
-  }
-  else if (currentPlayer == 'finished') {
-    console.log('playerOneScore' + playerOneScore + 'playerTwoScore' + playerTwoScore);
+  } else if (currentPlayer == 'finished') {
+    console.log('playerOneScore ' + playerOneScore + 'playerTwoScore ' + playerTwoScore);
     game.world.removeAll();
+    timer.removeAll();
     var winner = (playerOneScore > playerTwoScore) ? playerOne : playerTwo;
-    alert('The winner is ' + winner);
+    alert('The winner is ' + winner + '!!!');
+    console.log({name:winner});
     return;
   }
-
-
-
-  //record score of player 1
-  //reset cupcakes, score counter
-  //switch to player 2
 }
 
 function bgmPause(pointer) {
