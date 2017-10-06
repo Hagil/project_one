@@ -19,7 +19,7 @@ function create() {
 
   bgm.play();
 
-  game.input.onDown.add(changeVolume, this);
+  game.input.onDown.add(bgmPause, this);
   //  The platforms group contains the ground and the 2 ledges we can jump on
   platforms = game.add.group();
 

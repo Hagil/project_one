@@ -40,7 +40,7 @@ function changePlayer() {
 
 }
 
-function changeVolume(pointer) {
+function bgmPause(pointer) {
   if (pointer.y < 300) {
     bgm.pause();
   } else {
