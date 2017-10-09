@@ -65,20 +65,27 @@ function changePlayer() {
     timer.removeAll();
     var winner = (playerOneScore > playerTwoScore) ? playerOne : playerTwo;
     alert('The winner is ' + winner + '!!!');
-    console.log({name:winner});
-    $.get('data.php',{name:winner}).done(success).fail(fail);
+    console.log({
+      name: winner
+    });
+    $.get('data.php', {
+      name: winner
+    }).done(success).fail(fail);
     return;
   }
 }
-function success(data){
+
+function success(data) {
   console.log('success');
-console.log(data);
+  console.log(data);
 
 }
-function fail(faildata){
+
+function fail(faildata) {
   console.log('fail');
 
 }
+
 function bgmPause(pointer) {
   if (pointer.y < 300) {
     bgm.pause();
