@@ -66,7 +66,7 @@ function create() {
 
   //  Here we'll create 12 of them evenly spaced apart
   for (var i = 0; i < 12; i++) {
-    //  Create a star inside of the 'stars' group
+    //  Create a cupcake inside of the 'cupcakes' group
     var cupcake = cupcakes.create(i * 70, 0, 'cupcake');
 
     //  Let gravity do its thing
