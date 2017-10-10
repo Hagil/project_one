@@ -39,10 +39,7 @@ canvas {
 }
 
 button {
-  margin-top: 30px;
-  margin-right: 20px;
-  margin-left: 10px;
-  margin-bottom: 20px;
+  margin: 30px 20px 20px 10px;
   -moz-box-shadow: 3px 4px 0 0 #1564ad;
   -webkit-box-shadow: 3px 4px 0 0 #1564ad;
   box-shadow: 3px 4px 0 0 #1564ad;
@@ -52,7 +49,7 @@ button {
   background: -o-linear-gradient(top, #79bbff 5%, #378de5 100%);
   background: -ms-linear-gradient(top, #79bbff 5%, #378de5 100%);
   background: linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr= '#79bbff', endColorstr='#378de5',GradientType=0);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#79bbff', endColorstr='#378de5',GradientType=0);
   background-color: #79bbff;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -76,7 +73,7 @@ button:hover {
   background: -o-linear-gradient(top, #378de5 5%, #79bbff 100%);
   background: -ms-linear-gradient(top, #378de5 5%, #79bbff 100%);
   background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr= '#378de5', endColorstr='#79bbff',GradientType=0);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=  '#378de5', endColorstr='#79bbff',GradientType=0);
   background-color: #378de5;
 }
 
